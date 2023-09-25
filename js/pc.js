@@ -49,7 +49,10 @@ function pc(data) {
 	
 	// Task 5.2.2 -- Drawing Axes
 	var axes;
-
+	axes.dimension.enter().append("g").
+		attr("class", "axis").attr("transform", function (d) { return "translate(" + x(d) + ")"; }).
+		each(function (d) { d3.select(this).call(yAxis.scale(y[d])); }).
+		append("text").style("text-anchor", "middle").attr("y", -9).text(function (d) { return d; });
 	
 	// 5.2.3 -- Appending Axes Titles
 
