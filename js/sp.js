@@ -6,25 +6,42 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
   /** COMPUTER EXERCISE STARTS HERE  */
   //Task 5.1.1  -- Create the x-axis
   var x;
-  x = d3.scaleLinear().domain([0, 100]).range([0, 400])
+  // d3.scaleLinear() creates a linear scale 
+  // d3.domain() sets the input domain of the scale (the minimum and maximum values of the input)
+  // d3.range() creates a range of values from 0 to width
+  x = d3.scaleLinear().domain([0, 100]).range([0, width])
 
   //Task 5.1.2  -- Append the axes to the svg
   var xAxis;
-  xAxis = sp_svg.append("g").attr("transform", "translate(0,400)").call(d3.axisBottom(x))
+  // .append("g") appends a new element with the specified name as the last child of each element in the current selection
+  // .attr("transform", "translate(0," + height + ")") moves the axis to the bottom of the svg
+  // d3.axisBottom(x) creates a bottom-oriented axis generator for the given scale x
+  xAxis = sp_svg.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x))
 
   //Task 5.1.3  -- Create y-axis
   var y;
-  y = d3.scaleLinear().domain([0, 100]).range([400, 0]);
+  y = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 
-  // Task 5.1.4 -- Append the axis to svg
+  // Task 5.1.4 -- Append the axis to svg  ("transform", "translate(0,0)").call(d3.axisLeft(y))
   var yAxis;
-  yAxis = sp_svg.append("g").attr("transform", "translate(0,0)").call(d3.axisLeft(y))
+  yAxis = sp_svg.append("g").attr("transform", "translate(0, 0)").call(d3.axisLeft(y))
 
   // Task 5.1.5 -- Append circles to svg
   var myCircles;
+  // .selectAll("circle") selects all circles
+  // .data(data) binds data to the selected elements
+  // .enter() creates placeholders for missing elements
+  // .append("circle") appends a circle for each missing element
   myCircles = sp_svg.append('g').selectAll("circle").data(data).enter().append("circle")
 
   // Task 5.1.6 -- Append circles to svg
+  // .attr("cx", function (d) { return x(+d[x_var]); }) sets the x position of the circle
+  // .attr("cy", function (d) { return y(+d[y_var]); }) sets the y position of the circle
+  // .attr("r", 6) sets the radius of the circle
+  // .style("opacity", '0.3') sets the opacity of the circle
+  // .style("stroke", "darkturquoise") sets the color of the stroke of the circle
+  // .style("stroke-width", "1") sets the width of the stroke of the circle
+  // .style("fill", "darkturquoise") sets the color of the circle
   myCircles.attr("cx", function (d) { return x(+d[x_var]); })
     .attr("cy", function (d) { return y(+d[y_var]); }).
     attr("r", 6).
