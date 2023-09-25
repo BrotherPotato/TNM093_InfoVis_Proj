@@ -44,7 +44,8 @@ function pc(data) {
 
 	// Task 5.2.1 -- Drawing the Lines
 	var foreground;
-
+	foreground = pc_svg.append("g").attr("class", "foreground").selectAll("path").
+		data(data).enter().append("path").attr("d", drawPath);
 	
 	// Task 5.2.2 -- Drawing Axes
 	var axes;
