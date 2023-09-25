@@ -6,11 +6,11 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
   /** COMPUTER EXERCISE STARTS HERE  */
   //Task 5.1.1  -- Create the x-axis
   var x;
-  x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+  x = d3.scaleLinear().domain([0, 100]).range([0, 400])
 
   //Task 5.1.2  -- Append the axes to the svg
   var xAxis;
-  xAxis = sp_svg.append("g")
+  xAxis = sp_svg.append("g").attr("transform", "translate(0,400)").call(d3.axisBottom(x))
 
   //Task 5.1.3  -- Create y-axis
   var y;
@@ -18,15 +18,20 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
 
   // Task 5.1.4 -- Append the axis to svg
   var yAxis;
-  yAxis = sp_svg.append("g")
+  yAxis = sp_svg.append("g").attr("transform", "translate(0,0)").call(d3.axisLeft(y))
 
   // Task 5.1.5 -- Append circles to svg
   var myCircles;
-  myCircles = sp_svg.append('g')
+  myCircles = sp_svg.append('g').selectAll("circle").data(data).enter().append("circle")
 
   // Task 5.1.6 -- Append circles to svg
-  myCircles.selectAll("circle")
-
+  myCircles.attr("cx", function (d) { return x(+d[x_var]); })
+    .attr("cy", function (d) { return y(+d[y_var]); }).
+    attr("r", 6).
+    style("opacity", '0.3').
+    style("stroke", "darkturquoise").
+    style("stroke-width", "1").
+    style("fill", "darkturquoise")
 
   // Task 5.1.7 -- Adding hovering
   myCircles.on("mouseover", function (d) {
