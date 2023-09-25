@@ -51,17 +51,17 @@ function pc(data) {
 	var axes;
 	axes.dimension.enter().append("g").
 		attr("class", "axis").attr("transform", function (d) { return "translate(" + x(d) + ")"; }).
-		each(function (d) { d3.select(this).call(yAxis.scale(y[d])); }).
-		append("text").style("text-anchor", "middle").attr("y", -9).text(function (d) { return d; });
+		each(function (d) { d3.select(this).call(yAxis.scale(y[d])); })
 	
 	// 5.2.3 -- Appending Axes Titles
-
+	.append("text").style("text-anchor", "middle").attr("y", -9).text(function (d) { return d; });
 
 	// 5.2.4 -- Interaction, brushing the axes
-	
+	axes.append("g").attr("class", "brush").each(function (d) { d3.select(this).
+		call(perAxisBrush(d)); }).selectAll("rect").attr("x", -8).attr("width", 10);
 
 	// 5.2.5 -- Interaction, dragging the Axes
-	
+	//axes.call(d3.drag().subject(function (d) { return { x: x(d) }; }).on("start", startDrag))
 
 	//------------------------------------------------------------------------------------->
 	/** COMPUTER EXERCISE ENDS HERE  **/
