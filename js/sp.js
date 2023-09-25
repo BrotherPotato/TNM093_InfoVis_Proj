@@ -6,29 +6,32 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
   /** COMPUTER EXERCISE STARTS HERE  */
   //Task 5.1.1  -- Create the x-axis
   var x;
-
+  x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
 
   //Task 5.1.2  -- Append the axes to the svg
   var xAxis;
-
+  xAxis = sp_svg.append("g")
 
   //Task 5.1.3  -- Create y-axis
   var y;
-
+  y = d3.scaleLinear().domain([0, 100]).range([400, 0]);
 
   // Task 5.1.4 -- Append the axis to svg
   var yAxis;
-  
+  yAxis = sp_svg.append("g")
 
   // Task 5.1.5 -- Append circles to svg
   var myCircles;
-
+  myCircles = sp_svg.append('g')
 
   // Task 5.1.6 -- Append circles to svg
+  myCircles.selectAll("circle")
 
 
   // Task 5.1.7 -- Adding hovering
-
+  myCircles.on("mouseover", function (d) {
+    focusCircle(d)
+  })
 
   return [x, xAxis, y, yAxis, myCircles];
 }
