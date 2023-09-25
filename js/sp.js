@@ -35,25 +35,20 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
   myCircles = sp_svg.append('g').selectAll("circle").data(data).enter().append("circle")
 
   // Task 5.1.6 -- Append circles to svg
-  // .attr("cx", function (d) { return x(+d[x_var]); }) sets the x position of the circle
+  // .attr("cx", function (d) { return x(+d[x_var]); }) sets the x position of the circle 
   // .attr("cy", function (d) { return y(+d[y_var]); }) sets the y position of the circle
   // .attr("r", 6) sets the radius of the circle
-  // .style("opacity", '0.3') sets the opacity of the circle
-  // .style("stroke", "darkturquoise") sets the color of the stroke of the circle
-  // .style("stroke-width", "1") sets the width of the stroke of the circle
   // .style("fill", "darkturquoise") sets the color of the circle
-  myCircles.attr("cx", function (d) { return x(+d[x_var]); })
-    .attr("cy", function (d) { return y(+d[y_var]); }).
+  // .style("opacity", 0.3) sets the opacity of the circle
+  myCircles.attr("cx", function (d) { return x(d[x_var]); })
+    .attr("cy", function (d) { return y(d[y_var]); }).
     attr("r", 6).
-    style("opacity", '0.3').
-    style("stroke", "darkturquoise").
-    style("stroke-width", "1").
-    style("fill", "darkturquoise")
+    style("fill", "darkturquoise").
+    style("opacity", 0.3)
 
   // Task 5.1.7 -- Adding hovering
-  myCircles.on("mouseover", function (d) {
-    focusCircle(d)
-  })
+  // on hover opacity is set to 1 & tooltip is shown & circle is enlarged & color is changed to deeppink 
+  hovering(myCircles, tooltip)
 
   return [x, xAxis, y, yAxis, myCircles];
 }
