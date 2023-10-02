@@ -99,15 +99,17 @@ function (k) {
   create k rand values => put in plot within each domain bounds
   end
 
-  for item : data
-    sqrt(sum(euclidean distance))
-  end
+  do {
+    for item : data
+      sqrt(sum(euclidean distance))
+    end
 
-  recalc the K centroids
+    for item : data
+      The centroid of each of the k clusters becomes the new mean.
+    end
 
-  while(quality increase)
-    calc quality with min(sum(sum(pow(abs(x-u),2),Si),1->k)
-  end
+      calc quality with min(sum(sum(pow(abs(x-u),2),Si),1->k)
+  } while(quality increase > tolerance)
 
   return quality
 }
@@ -115,3 +117,14 @@ function (k) {
 https://en.wikipedia.org/wiki/K-means_clustering#Initialization_methods
 
  -->
+
+ <!-- 
+Looking at index2
+
+depending which colour you get the resulting ammounts of custers will be easier or harder to analyse. 
+
+Around 4–5 clusters are adequate.
+
+The random dispersion gives different results each time since the points are randomly selected, this results in different types of clusters each time
+
+  -->
