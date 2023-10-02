@@ -38,30 +38,35 @@ function pc(data) {
 	}));
 
 	//------------------------------------------------------------------------------------->
-	/** COMPUTER EXERCISE STARTS HERE  */
+	// /** COMPUTER EXERCISE STARTS HERE  */
 	origDimensions = dimensions.slice(0);
 	extents = dimensions.map(function (p) { return [0, 0]; });
 
-	// Task 5.2.1 -- Drawing the Lines
+	// // Task 5.2.1 -- Drawing the Lines
 	var foreground;
 	foreground = pc_svg.append("g").attr("class", "foreground").selectAll("path").
-		data(data).enter().append("path").attr("d", drawPath);
+	data(data).enter().append("path").attr("d", drawPath);
 	
-	// Task 5.2.2 -- Drawing Axes
+	// // Task 5.2.2 -- Drawing Axes
 	var axes;
-	axes.dimension.enter().append("g").
-		attr("class", "axis").attr("transform", function (d) { return "translate(" + x(d) + ")"; }).
-		each(function (d) { d3.select(this).call(yAxis.scale(y[d])); })
-	
-	// 5.2.3 -- Appending Axes Titles
-	.append("text").style("text-anchor", "middle").attr("y", -9).text(function (d) { return d; });
+	axes = pc_svg.selectAll(".dimension").data(dimensions).enter().append("g");
 
-	// 5.2.4 -- Interaction, brushing the axes
-	axes.append("g").attr("class", "brush").each(function (d) { d3.select(this).
-		call(perAxisBrush(d)); }).selectAll("rect").attr("x", -8).attr("width", 10);
+	axes.attr("class", "dimension axis" )
+	.attr("transform", function (d) { return "translate(" + x(d) + ")"; })
+	.each(function (index) {d3.select(this)
+	.call(yAxis.scale(y[index]) )} );
+
+	//5.2.3 -- Appending Axes Titles
+	axes.append("text").style("text-anchor", "middle").attr("y", -9).style("fill", "black").text(function (d) { return d; });
+
+	// // 5.2.4 -- Interaction, brushing the axes
+	axes.append("g").attr("class", "brush").each(function (d) { d3.select(this)
+	.call(perAxisBrush(d)); })
+	.selectAll("rect").attr("x", -8)
+	.attr("width", 10);
 
 	// 5.2.5 -- Interaction, dragging the Axes
-	//axes.call(d3.drag().subject(function (d) { return { x: x(d) }; }).on("start", startDrag))
+	axes.call(d3.drag().subject(function (d) { return { x: x(d) }; }).on("start", startDrag).on("drag", drag).on("end", endDrag))
 
 	//------------------------------------------------------------------------------------->
 	/** COMPUTER EXERCISE ENDS HERE  **/

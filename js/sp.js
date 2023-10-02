@@ -9,7 +9,12 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
   // d3.scaleLinear() creates a linear scale 
   // d3.domain() sets the input domain of the scale (the minimum and maximum values of the input)
   // d3.range() creates a range of values from 0 to width
-  x = d3.scaleLinear().domain([0, 100]).range([0, width])
+  x = d3.scaleLinear().domain([
+    d3.min(data, function (d) { return +d[x_var]; }),
+    d3.max(data, function (d) { return +d[x_var]; })])
+    .range([0, width/2]);
+
+    console.log(d3.max(data, function (d) { return +d[x_var];}));
 
   //Task 5.1.2  -- Append the axes to the svg
   var xAxis;
@@ -20,7 +25,10 @@ function labcode(data, x_var, y_var, sp_svg, tooltip) {
 
   //Task 5.1.3  -- Create y-axis
   var y;
-  y = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+  y = d3.scaleLinear().domain([
+    d3.min(data, function (d) { return +d[y_var]; }),
+    d3.max(data, function (d) { return +d[y_var]; })])
+    .range([height, 0]);
 
   // Task 5.1.4 -- Append the axis to svg  ("transform", "translate(0,0)").call(d3.axisLeft(y))
   var yAxis;

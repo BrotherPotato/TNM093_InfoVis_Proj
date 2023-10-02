@@ -58,6 +58,12 @@ function info(data) {
 			/**
 			*  Final Task -- call the two function below.
 			*/
+
+			.on("mouseover", selectValues)
+			.on("mouseout", resetSelectedValues);
+
+
+			// end of final task
 			
 
 		function selectValues(param) {
